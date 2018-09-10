@@ -38,8 +38,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.tv_book_title.setText(mData.get(position).getName());
-        holder.img_book_thumbnail.setImageURI(mData.get(position).getThumbnailUri());
+        holder.tv_room_name.setText(mData.get(position).getTitle());
+        holder.img_room_thumbnail.setImageResource(mData.get(position).getThumbnail());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(mContext,RoomQuickAdd.class);
 
                 // passing data to the room activity
-                intent.putExtra("Title",mData.get(position).getName());
+                intent.putExtra("Title",mData.get(position).getTitle());
                 intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
                 // start the activity
                 mContext.startActivity(intent);
@@ -66,15 +66,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_book_title;
-        ImageView img_book_thumbnail;
+        TextView tv_room_name;
+        ImageView img_room_thumbnail;
         CardView cardView ;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id) ;
-            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
+            tv_room_name = (TextView) itemView.findViewById(R.id.room_name_id) ;
+            img_room_thumbnail = (ImageView) itemView.findViewById(R.id.room_img_id);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
 
