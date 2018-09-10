@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        //inflate cardview
         View view ;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardview_room,parent,false);
@@ -37,9 +37,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-
+        //set the holder
         holder.tv_book_title.setText(mData.get(position).getName());
-        holder.img_book_thumbnail.setImageURI(mData.get(position).getThumbnailUri());
+        holder.img_book_thumbnail.setImageURI(mData.get(position).getImagePathUri());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 // passing data to the room activity
                 intent.putExtra("Title",mData.get(position).getName());
-                intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
+                intent.putExtra("Thumbnail",mData.get(position).getImagePath());
                 // start the activity
                 mContext.startActivity(intent);
 
@@ -73,8 +73,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id) ;
-            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
+            tv_book_title = (TextView) itemView.findViewById(R.id.room_name_id) ;
+            img_book_thumbnail = (ImageView) itemView.findViewById(R.id.room_image_id);
             cardView = (CardView) itemView.findViewById(R.id.cardview_id);
 
 

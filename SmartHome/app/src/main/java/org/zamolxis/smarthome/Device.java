@@ -4,7 +4,7 @@ public class Device {
     String deviceName;
     int deviceID;
     int deviceIDRoom;
-    String thumbnail;
+    String imagePath;
 
 
     //getters and setters
@@ -32,11 +32,11 @@ public class Device {
         this.deviceIDRoom = deviceIDRoom;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setThumbnail(String thumbnail){
-        this.thumbnail = thumbnail;
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
     }
 }

@@ -16,8 +16,8 @@ public class RoomQuickAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
 
-        tvtitle = (TextView) findViewById(R.id.txttitle);
-        img = (ImageView) findViewById(R.id.bookthumbnail);
+        tvtitle = (TextView) findViewById(R.id.room_name_id);
+        img = (ImageView) findViewById(R.id.room_image_id);
 
         // Recieve data
         Intent intent = getIntent();

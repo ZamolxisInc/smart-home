@@ -10,6 +10,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
+
+import java.io.File;
 
 
 public class DataBaseHandler extends SQLiteOpenHelper {
@@ -31,16 +34,18 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_DEVICE_IMAGE = "location";
 
 
+    public Context context;
+
     //constructor
     public DataBaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DB_NAME, factory, DB_VERSION);
+        this.context = context;
     }
 
 
     /*<---------------------| Override |--------------------->*/
     @Override
     public void onCreate(SQLiteDatabase db) {
-
 
         String Query_room = "CREATE TABLE IF NOT EXISTS " + TABLE_ROOMS + "(" +
                 COLUMN_ROOM_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
@@ -55,9 +60,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 COLUMN_DEVICE_IMAGE + " TEXT ," +
                 "UNIQUE(" + COLUMN_ROOM_NAME + ")" + ");";
 
+        Toast.makeText(context, "OnCreate()", Toast.LENGTH_LONG).show();
+
         //Create tables
         db.execSQL(Query_room);
         db.execSQL(Query_device);
+
+        this.checkDBexists();
     }
 
     @Override
@@ -78,7 +87,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         //add values
         values.put(COLUMN_ROOM_ID, room.getId());
         values.put(COLUMN_ROOM_NAME, room.getName());
-        values.put(COLUMN_ROOM_IMAGE, room.getThumbnail());
+        values.put(COLUMN_ROOM_IMAGE, room.getImagePath());
 
         //add to table
         db.insert(TABLE_ROOMS, null, values);
@@ -92,7 +101,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_DEVICE_ID, device.getDeviceID());
         values.put(COLUMN_DEVICE_ROOM_ID, device.getDeviceIDRoom());
         values.put(COLUMN_DEVICE_NAME, device.getDeviceName());
-        values.put(COLUMN_DEVICE_IMAGE, device.getThumbnail());
+        values.put(COLUMN_DEVICE_IMAGE, device.getImagePath());
 
         //add to table
         SQLiteDatabase db = getWritableDatabase();
@@ -129,9 +138,29 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
             } while (allRows.moveToNext());
         }
-
+        allRows.close();
         return tableString;
     }
 
+
+
+    /*<---------------------|CHECKERS |--------------------->*/
+    public void checkDBexists(){
+        File dbFile = context.getDatabasePath(DB_NAME);
+        if( dbFile.exists() ){
+            Toast.makeText(context, "DB exists", Toast.LENGTH_LONG).show();
+
+            checkTables();
+        }else{
+            Toast.makeText(context, "Error: DB doesn't exist", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+
+    public void checkTables(){
+
+    }
 
 }

@@ -15,20 +15,20 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/book_img_id"
+            android:id="@+id/room_img_id"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            android:background="#2d2d2d"/>
+            android:background="#2d2d2d"
+            android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/book_title_id"
-            android:textColor="#2d2d2d"
-            android:textSize="13sp"
-            android:gravity="center"
+            android:id="@+id/room_name_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Room name"/>
+            android:gravity="center"
+            android:text="Room name"
+            android:textColor="#2d2d2d"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
