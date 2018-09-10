@@ -38,8 +38,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
-        holder.tv_book_title.setText(mData.get(position).getTitle());
-        holder.img_book_thumbnail.setImageResource(mData.get(position).getThumbnail());
+        holder.tv_book_title.setText(mData.get(position).getName());
+        holder.img_book_thumbnail.setImageURI(mData.get(position).getThumbnailUri());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(mContext,RoomQuickAdd.class);
 
                 // passing data to the room activity
-                intent.putExtra("Title",mData.get(position).getTitle());
+                intent.putExtra("Title",mData.get(position).getName());
                 intent.putExtra("Thumbnail",mData.get(position).getThumbnail());
                 // start the activity
                 mContext.startActivity(intent);
