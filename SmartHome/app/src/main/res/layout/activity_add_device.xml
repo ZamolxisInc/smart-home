@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddDevice">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/room_image_id"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="#2d2d2d"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/room_name_id"
+            android:layout_width="229dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="10dp"
+            android:hint="What's your room name?"
+            android:paddingTop="10dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/choose_room_button"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:background="#edecec"
+            android:paddingTop="15dp"
+            android:text="Choose Image"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/finish_room_button"
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Finish your room !" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

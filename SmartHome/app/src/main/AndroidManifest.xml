@@ -20,8 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddRoom"></activity>
-        <activity android:name=".RoomQuickAdd"></activity>
+        <activity android:name=".AddRoom" />
+        <activity android:name=".RoomQuickAdd" />
+        <activity android:name=".AddDevice"></activity>
     </application>
 
 </manifest>

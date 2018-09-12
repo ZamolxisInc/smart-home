@@ -1,6 +1,5 @@
 package org.zamolxis.smarthome;
 
-
 /**
  *Created by Neacsu Antoniu 5/9/2018
  */
@@ -34,13 +33,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_DEVICE_IMAGE = "location";
 
 
-    public Context context;
+    private Context context;
+    //SQLiteDatabase db = getWritableDatabase();
 
-    //constructor
-    public DataBaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DB_NAME, factory, DB_VERSION);
+
+
+
+
+    /*<---------------------| CONSTRUCTOR |--------------------->*/
+    public DataBaseHandler(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
+
+
+
 
 
     /*<---------------------| Override |--------------------->*/
@@ -48,36 +55,52 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String Query_room = "CREATE TABLE IF NOT EXISTS " + TABLE_ROOMS + "(" +
-                COLUMN_ROOM_ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_ROOM_NAME + " text, " +
-                COLUMN_ROOM_IMAGE + " TEXT );";
+                COLUMN_ROOM_ID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                COLUMN_ROOM_NAME + " text NOT NULL, " +
+                COLUMN_ROOM_IMAGE + " TEXT NOT NULL );";
 
 
         String Query_device = "CREATE TABLE  IF NOT EXISTS " + TABLE_DEVICES + "(" +
-                COLUMN_DEVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_DEVICE_ROOM_ID + " TEXT, " +
-                COLUMN_DEVICE_NAME + " TEXT, " +
-                COLUMN_DEVICE_IMAGE + " TEXT ," +
-                "UNIQUE(" + COLUMN_ROOM_NAME + ")" + ");";
+                COLUMN_DEVICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                COLUMN_DEVICE_ROOM_ID + " TEXT NOT NULL, " +
+                COLUMN_DEVICE_NAME + " TEXT NOT NULL, " +
+                COLUMN_DEVICE_IMAGE + " TEXT NOT NULL" + ");";
 
         Toast.makeText(context, "OnCreate()", Toast.LENGTH_LONG).show();
 
-        //Create tables
-        db.execSQL(Query_room);
-        db.execSQL(Query_device);
+        try {
+            //Create tables
+            db.execSQL(Query_room);
+        }
+        catch (Exception e){
+            Toast.makeText(context, "Room Query Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        try {
+            //Create tables
+            db.execSQL(Query_device);
+        }
+        catch (Exception e){
+            Toast.makeText(context, "Device Query Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
 
         this.checkDBexists();
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        Toast.makeText(context, "OnUpdate()", Toast.LENGTH_LONG).show();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DEVICES);
         onCreate(db);
     }
 
 
-    /*<---------------------| ADD / DELETE |--------------------->*/
+
+
+
+    /*<---------------------| ADD / DELETE / EXEC QUERY |--------------------->*/
     //Add ROW
     public void addRoom(Room room) {
         SQLiteDatabase db = getWritableDatabase();
@@ -122,8 +145,22 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    //Exec any query
+    public void executeQuery(String q, SQLiteDatabase db){
+        try{
+            db.execSQL(q);
+        }
+        catch (Exception e){
+            Toast.makeText(context, "Failed to execute query", Toast.LENGTH_LONG).show();
+        }
 
-    /*<---------------------| ADD / DELETE |--------------------->*/
+    }
+
+
+
+
+
+    /*<---------------------| PRINT |--------------------->*/
     public String getTableAsString(SQLiteDatabase db) {
         String tableString = String.format("Table %s:\n", TABLE_ROOMS);
         Cursor allRows = db.rawQuery("SELECT * FROM " + TABLE_ROOMS, null);
@@ -144,23 +181,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 
 
+
+
     /*<---------------------|CHECKERS |--------------------->*/
     public void checkDBexists(){
         File dbFile = context.getDatabasePath(DB_NAME);
         if( dbFile.exists() ){
             Toast.makeText(context, "DB exists", Toast.LENGTH_LONG).show();
-
-            checkTables();
         }else{
             Toast.makeText(context, "Error: DB doesn't exist", Toast.LENGTH_LONG).show();
         }
-
-
-    }
-
-
-    public void checkTables(){
-
     }
 
 }
