@@ -78,7 +78,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         //add values
         values.put(COLUMN_ROOM_ID, room.getId());
         values.put(COLUMN_ROOM_NAME, room.getName());
-        values.put(COLUMN_ROOM_IMAGE, room.getThumbnail());
+        values.put(COLUMN_ROOM_IMAGE, room.getImagePath());
 
         //add to table
         db.insert(TABLE_ROOMS, null, values);

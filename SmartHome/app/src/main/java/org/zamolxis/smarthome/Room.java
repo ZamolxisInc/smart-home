@@ -7,14 +7,14 @@ public class Room {
     static int lastId = 0;
     private int id;
     private String name;
-    private String thumbnail;
+    private String imagePath;
 
     public Room() {
     }
 
-    public Room(String name, String thumbnail) {
+    public Room(String name, String imagePath) {
         name = this.name;
-        thumbnail = this.thumbnail;
+        imagePath = this.imagePath;
     }
 
 
@@ -22,13 +22,13 @@ public class Room {
         return name;
     }
 
-    public Uri getThumbnailUri(){
-        Uri u =  Uri.parse(this.getThumbnail());
+    public Uri getImagePathUri(){
+        Uri u =  Uri.parse(this.getImagePath());
         return u;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getImagePath() {
+        return imagePath;
     }
 
 
@@ -36,8 +36,8 @@ public class Room {
         name = this.name;
     }
 
-    public void setThumbnail(String thumbnail) {
-        thumbnail = this.thumbnail;
+    public void setImagePath(String imagePath) {
+        imagePath = this.imagePath;
     }
 
     public static int getLastId() {
